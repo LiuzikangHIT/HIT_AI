@@ -1,0 +1,4 @@
+Computing	路人甲
+Electronics	炮灰乙
+Astronautics	流氓丙
+Mechatronics	土匪丁
