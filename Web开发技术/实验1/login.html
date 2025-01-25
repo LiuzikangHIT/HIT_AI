@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="./jquery-3.7.1.min.js"></script>
+    <link href="./bootstrap.min.css" rel="stylesheet">
+    <script src="./bootstrap.bundle.min.js"></script>
+    <script>
+        function login() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            $.ajax({
+                url: "http://localhost:8080/Web_lab1_war_exploded/login-servlet",
+                type: "post",
+                dataType: "json",
+                data: {
+                    username: username,
+                    password: password
+                },
+                success: function(res) {
+                    if(res.code == 200) {
+                        sessionStorage.setItem("username", username);
+                        window.location="index.html";
+                    } else {
+                        $("#msg").text(res.msg);
+                    }
+                },
+                error: function() {
+                    console.log("Error");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="d-flex flex-row justify-content-between align-items-center">  
+        <div class="mb-3 d-flex align-items-center">
+            <img src="https://pic2.zhimg.com/v2-f24cf7eb84a5a0d6e82d951e29638a51_r.jpg" alt="logo" style="width: 140px; height: 140px; float: left;" class="d-none d-md-flex">
+        </div>
+        <div>
+            <div class="form-container">
+                <input type="text" id="username" placeholder="请输入用户名"><br>
+                <input type="password" id="password" placeholder="请输入密码"><br>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                <label class="form-check-label" for="remember">记住我</label>
+            </div>
+            <button onclick="login()">登录</button><br>
+            <span id="msg" style="color: red;"></span><br>
+        </div>
+    </div>
+</body>
+</html>
